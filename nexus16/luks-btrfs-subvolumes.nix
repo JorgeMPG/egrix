@@ -11,6 +11,9 @@
   # https://wiki.archlinux.org/title/btrfs
   # " within a single file system, it is not possible to mount some subvolumes with nodatacow and others with datacow. The mount option of the first mounted subvolume applies to any other subvolumes. "
   #
+  # Last, install nixos indicating --no-filesystems so it doesn't override disko setup:
+  # > nixos-generate-config --no-filesystems --root /mnt
+  #
   disko.devices = {
     disk = {
       vdb = {
