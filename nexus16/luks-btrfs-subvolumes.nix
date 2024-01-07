@@ -1,6 +1,6 @@
 {
   # Use this config on a live system with
-  # > sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/luks-btrfs-subvolumes.nix
+  # > nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko /tmp/luks-btrfs-subvolumes.nix
   #
   # Then set nodatacow for required subvolumesr:
   # > chattr +C /mnt/<mounted-subvolume-folder>
@@ -66,11 +66,23 @@
                       mountpoint = "/nix";
                       mountOptions = [ "compress=zstd" "noatime" ];
                     };
-                    "@swap" = {
-                      mountpoint = "/swapvol";
-                      swap.swapfile.size = "32G";
+                    "@nixos/log" = {
+                      mountpoint = "/log";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "@nixos/tmp" = {
+                      mountpoint = "/tmp";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "@nixos/srv" = {
+                      mountpoint = "/srv";
+                      mountOptions = [ "compress=zstd" "noatime" ];
+                    };
+                    "@nixos/var" = {
+                      mountpoint = "/var";
+                      mountOptions = [ "compress=zstd" "noatime" ];
                       # Set no-cow with
-                      # > chattr +C /mnt/.swapvol
+                      # > chattr +C /mnt/var
                       # once mounted
                     };
                     "@vm" = {
@@ -80,25 +92,11 @@
                       # > chattr +C /mnt/vm
                       # once mounted
                     };
-                    "@nixos/log" = {
-                      mountpoint = "/log";
-                      mountOptions = [ "compress=zstd" "noatime" ];
+                    "@swap" = {
+                      mountpoint = "/swapvol";
+                      swap.swapfile.size = "32G";
                       # Set no-cow with
-                      # > chattr +C /mnt/log
-                      # once mounted
-                    };
-                    "@nixos/srv" = {
-                      mountpoint = "/srv";
-                      mountOptions = [ "compress=zstd" "noatime" ];
-                      # Set no-cow with
-                      # > chattr +C /mnt/srv
-                      # once mounted
-                    };
-                    "@nixos/var" = {
-                      mountpoint = "/var";
-                      mountOptions = [ "compress=zstd" "noatime" ];
-                      # Set no-cow with
-                      # > chattr +C /mnt/var
+                      # > chattr +C /mnt/swapvol
                       # once mounted
                     };
                   };
