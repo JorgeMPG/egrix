@@ -1,0 +1,2 @@
+# egrix
+Nix configurations
