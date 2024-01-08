@@ -28,15 +28,12 @@
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot/EFI";
-                mountOptions = [
-                  "defaults"
-                ];
+                mountpoint = "/boot";
+                mountOptions = [ "umask=0077" "defaults" ];
               };
             };
             luks = {
-              start = "513M";
-              end = "500G";
+              size = "500G";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -88,22 +85,15 @@
                       # > chattr +C /mnt/var
                       # once mounted
                     };
-                    "@vm" = {
-                      mountpoint = "/vm";
-                      mountOptions = [ "compress=zstd" "noatime" ];
-                      # Set no-cow with
-                      # > chattr +C /mnt/vm
-                      # once mounted
-                    };
-                    "@swap" = {
-                      mountpoint = "/swapvol";
-                      swap.swapfile.size = "32G";
-                      # Set no-cow with
-                      # > chattr +C /mnt/swapvol
-                      # once mounted
-                    };
                   };
                 };
+              };
+            };
+            encryptedSwap = {
+              size = "16G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
               };
             };
           };
