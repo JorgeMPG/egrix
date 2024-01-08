@@ -25,19 +25,17 @@
             ESP = {
               size = "512M";
               type = "EF00";
-              bootable = true;
               content = {
                 type = "filesystem";
                 format = "vfat";
-                mountpoint = "/boot/EFI";
+                mountpoint = "/boot";
                 mountOptions = [
                   "defaults"
                 ];
               };
             };
             luks = {
-              start = "513M";
-              end = "500G";
+              size = "500G";
               content = {
                 type = "luks";
                 name = "crypted";
@@ -89,19 +87,12 @@
                       # > chattr +C /mnt/var
                       # once mounted
                     };
-                    "@vm" = {
-                      mountpoint = "/vm";
-                      mountOptions = [ "compress=zstd" "noatime" ];
-                      # Set no-cow with
-                      # > chattr +C /mnt/vm
-                      # once mounted
-                    };
                   };
                 };
               };
             };
             encryptedSwap = {
-              size = "10G";
+              size = "16G";
               content = {
                 type = "swap";
                 randomEncryption = true;
