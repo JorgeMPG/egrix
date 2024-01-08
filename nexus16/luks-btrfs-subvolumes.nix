@@ -25,6 +25,7 @@
             ESP = {
               size = "512M";
               type = "EF00";
+              bootable = true;
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -95,15 +96,15 @@
                       # > chattr +C /mnt/vm
                       # once mounted
                     };
-                    "@swap" = {
-                      mountpoint = "/swapvol";
-                      swap.swapfile.size = "32G";
-                      # Set no-cow with
-                      # > chattr +C /mnt/swapvol
-                      # once mounted
-                    };
                   };
                 };
+              };
+            };
+            encryptedSwap = {
+              size = "10G";
+              content = {
+                type = "swap";
+                randomEncryption = true;
               };
             };
           };
