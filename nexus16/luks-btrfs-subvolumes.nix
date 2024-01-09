@@ -42,7 +42,7 @@
                 settings = {
                   allowDiscards = true;
                   # echo -n "<password" > /tmp/secret.key
-                  keyFile = "/tmp/secret.key";
+                  passwordFile = "/tmp/secret.key";
                 };
                 # additionalKeyFiles = [ "/tmp/additionalSecret.key" ];
                 content = {
@@ -90,7 +90,7 @@
               };
             };
             encryptedSwap = {
-              size = "16G";
+              size = "33G";
               content = {
                 type = "swap";
                 randomEncryption = true;
